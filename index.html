@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0f14">
+  <title>TheOtherHand</title>
+  
+  <link rel="manifest" crossorigin="use-credentials" href="/manifest.json">
+  <link rel="stylesheet" href="/style.css">
+  
+  <meta name="description" content="Practice handwriting with your non-dominant hand.">
+</head>
+<body>
+
+  <div id="app-container">
+    
+    <!-- DASHBOARD VIEW -->
+    <main id="view-progress" class="view active">
+      <header class="header">
+        <div>
+          <h1 class="text-gradient" style="font-size: 2.2rem;">Progress</h1>
+          <div class="subtitle" id="progress-text" style="font-size: 1.1rem; color: var(--text-primary); font-weight: 500;">0 / 0 complete</div>
+        </div>
+      </header>
+
+      <div id="notification-banner" class="notification-banner" style="display: none;">
+        <div class="banner-text">Enable daily practice reminders! 🔔</div>
+        <button id="btn-enable-notif" class="banner-btn">Enable</button>
+      </div>
+
+      <div class="stats-card">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="stat-level">1</div>
+            <div class="stat-label">Current Level</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-streak">0</div>
+            <div class="stat-label">Day Streak 🔥</div>
+          </div>
+        </div>
+        <div class="level-progress">
+          <div>
+            <div style="font-weight: 600; font-size: 1.3rem; color: var(--accent-secondary);" id="level-title">Level Title</div>
+            <div style="font-size: 1rem; color: var(--text-secondary); margin-top: 4px;" id="level-desc">Level description goes here</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; flex-shrink: 0;">
+        <h3 style="font-size: 1.1rem; margin: 0;">Today's Worksheet</h3>
+        <button id="btn-redo" class="btn btn-icon" style="width: 36px; height: 36px; background: transparent; border: 1px solid var(--accent-glow); color: var(--accent-primary);" title="Redo Worksheet">
+          <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
+      </div>
+      <div id="daily-tasks" class="daily-task-list">
+        <!-- Task dots injected here -->
+      </div>
+    </main>
+
+    <!-- PRACTICE BANK VIEW -->
+    <main id="view-bank" class="view">
+      <header class="header">
+        <div>
+          <h1 class="text-gradient">Practice Bank</h1>
+          <div class="subtitle">Free practice without pressure</div>
+        </div>
+      </header>
+      
+      <div id="bank-container">
+        <!-- Categories injected here -->
+      </div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+      <button id="nav-progress" class="nav-btn active">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        Progress
+      </button>
+      <button id="nav-bank" class="nav-btn">
+        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
+        Bank
+      </button>
+    </nav>
+  </div>
+
+  <!-- CANVAS OVERLAY -->
+  <div id="canvas-overlay">
+    <div class="canvas-header">
+      <div class="canvas-title" id="active-item-title">Practice</div>
+      <button id="btn-close-canvas" class="btn btn-icon" style="background: var(--bg-surface-elevated);">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+    
+    <div class="canvas-container">
+      <canvas id="drawing-canvas"></canvas>
+    </div>
+
+    <div class="canvas-controls">
+      <button id="btn-undo" class="btn btn-icon">
+        <svg viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
+      </button>
+      <button id="btn-clear" class="btn">Clear</button>
+      <button id="btn-submit" class="btn btn-primary" style="flex:1;">Submit</button>
+    </div>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
