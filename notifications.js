@@ -5,7 +5,7 @@ const REMINDER_KEY = 'toh_reminder_hour';
 export async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      const reg = await navigator.serviceWorker.register('/sw.js');
+      const reg = await navigator.serviceWorker.register('./sw.js');
       console.log('[SW] Registered', reg.scope);
       return reg;
     } catch (err) {
@@ -62,7 +62,7 @@ function fireNotification() {
   if (Notification.permission === 'granted') {
     new Notification('TheOtherHand ✍️', {
       body: "Time to practice! Your non-dominant hand won't train itself 🖊️",
-      icon: '/icons/icon-192.png',
+      icon: './icons/icon-192.png',
       tag: 'daily-reminder'   // prevent duplicate notifications
     });
   }

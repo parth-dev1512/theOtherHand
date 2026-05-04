@@ -2,7 +2,7 @@
   "name": "TheOtherHand",
   "short_name": "OtherHand",
   "description": "Practice handwriting with your non-dominant hand",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f0f14",
   "theme_color": "#7c5cfc",

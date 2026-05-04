@@ -1,15 +1,15 @@
 // TheOtherHand Service Worker
-const CACHE_NAME = 'theotherhand-v2';
+const CACHE_NAME = 'theotherhand-v3';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/canvas.js',
-  '/data.js',
-  '/progress.js',
-  '/notifications.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './canvas.js',
+  './data.js',
+  './progress.js',
+  './notifications.js',
+  './manifest.json'
 ];
 
 // Install: cache core assets
@@ -43,8 +43,8 @@ self.addEventListener('push', (e) => {
   const title = data.title || 'TheOtherHand';
   const options = {
     body: data.body || "Time to practice! Your non-dominant hand won't train itself 🖊️",
-    icon: '/icons/icon-192.png',
-    badge: '/icons/icon-192.png',
+    icon: './icons/icon-192.png',
+    badge: './icons/icon-192.png',
     vibrate: [100, 50, 100]
   };
   e.waitUntil(self.registration.showNotification(title, options));
@@ -52,5 +52,5 @@ self.addEventListener('push', (e) => {
 
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
-  e.waitUntil(clients.openWindow('/'));
+  e.waitUntil(clients.openWindow('./'));
 });
